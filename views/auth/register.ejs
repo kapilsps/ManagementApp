@@ -5,39 +5,51 @@
       </div>
       <div class="card-body">
         <p class="login-box-msg">Register a new membership</p>
-  
+        <%- include('../partials/flash_messages'); %>
         <form action="/register" method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="name" placeholder="Full name">
+            <input type="text" class="form-control <%= (typeof usrErrMsg !== 'undefined') ? 'is-invalid' : '' %>"  name="username" placeholder="Full name" value="<%= (typeof usrErrVal !== 'undefined') ? usrErrVal : '' %>">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
               </div>
             </div>
+            <% if(typeof usrErrMsg !== 'undefined') { %>
+              <div class="invalid-feedback"><%= usrErrMsg %></div>
+            <% } %>
           </div>
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email">
+            <input type="email" class="form-control <%= (typeof emailErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="email" placeholder="Email" value="<%= (typeof emailErrVal !== 'undefined') ? emailErrVal : '' %>">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
               </div>
             </div>
+            <% if(typeof emailErrMsg !== 'undefined') { %>
+              <div class="invalid-feedback"><%= emailErrMsg %></div>
+            <% } %>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+            <input type="password" class="form-control <%= (typeof pwdErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="password" placeholder="Password" >
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            <% if(typeof pwdErrMsg !== 'undefined') { %>
+              <div class="invalid-feedback"><%= pwdErrMsg %></div>
+            <% } %>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Retype password">
+            <input type="password" class="form-control <%= (typeof cnfPwdErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="confirm_password" placeholder="Retype password">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
+            <% if(typeof cnfPwdErrMsg !== 'undefined') { %>
+              <div class="invalid-feedback"><%= cnfPwdErrMsg %></div>
+            <% } %>
           </div>
           <div class="row">
             <div class="col-8">

@@ -1,3 +1,7 @@
+const { validationResult }  = require('express-validator');
+const { User }              = require('../../models');
+const bcrypt                = require('bcryptjs');
+
 /**
  * Render the Register page
  * @param {*} req 
@@ -19,8 +23,64 @@ exports.index = (req, res, next) => {
  * @param {*} next 
  */
 exports.postRegister = (req, res, next) => {
-    res.render('auth/login',{
-        title: 'Register',
-        layout: 'layouts/auth_layout'
-    });
+    try {
+        const errors = validationResult(req).array();
+        let usrErrVal, usrErrMsg, emailErrMsg, emailErrVal, pwdErrMsg, cnfPwdErrMsg;
+        if(errors.length > 0){
+            errors.find((el) => {
+                if(el.param === 'username'){
+                    usrErrMsg = el.msg;
+                    usrErrVal = el.value;
+                }
+    
+                if(el.param === 'email'){
+                    emailErrMsg = el.msg;
+                    emailErrVal = el.value;
+                }
+    
+                if(el.param === 'password'){
+                    pwdErrMsg = el.msg;
+                }
+    
+                if(el.param === 'confirm_password'){
+                    cnfPwdErrMsg = el.msg;
+                }
+            });
+    
+            return res.status(422).render('auth/register',{
+                title:'Register',
+                layout:'layouts/auth_layout',
+                usrErrMsg:usrErrMsg,
+                usrErrVal: (usrErrVal) ? usrErrVal : req.body.username,
+                emailErrMsg:emailErrMsg,
+                emailErrVal: (emailErrVal) ? emailErrVal : req.body.email,
+                pwdErrMsg:pwdErrMsg,
+                cnfPwdErrMsg:cnfPwdErrMsg,
+            });
+        }else{
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(req.body.password, salt, function(err, hash) {
+                    User.create({
+                            name:req.body.username,
+                            email:req.body.email,
+                            password:hash
+                        })
+                        .then(result => {
+                            if(result !== null){
+                                req.flash('success', 'Registered successfully.')
+                                return res.redirect('/login');
+                            }
+                            req.flash('fail', 'Something went wrong please try again')
+                            return res.redirect('/register');
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                });
+            });
+        }
+    } catch (error) {
+        req.flash('fail', 'Internal server error.');
+        res.redirect('/register');
+    }
 };

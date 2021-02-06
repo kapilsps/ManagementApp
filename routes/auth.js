@@ -1,8 +1,10 @@
-const express           = require('express');
-const router            = express.Router();
-const LoginController   = require('../controller/auth/login-controller');
-const RegisterController   = require('../controller/auth/register-controller');
-const ForgotPasswordController   = require('../controller/auth/forgotpassword-controller');
+const express                       = require('express');
+const router                        = express.Router();
+const LoginController               = require('../controller/auth/login-controller');
+const RegisterController            = require('../controller/auth/register-controller');
+const ForgotPasswordController      = require('../controller/auth/forgotpassword-controller');
+const RegisterValidation            = require('../validation_rules/register-validation');
+const LoginValidation               = require('../validation_rules/login-validation');
 
 /**
  * Login Page
@@ -14,7 +16,7 @@ router.get('/login', LoginController.index);
  * Login Page
  * @request POST
  */
-router.post('/login', LoginController.postLogin);
+router.post('/login', LoginValidation.rules, LoginController.postLogin);
 
 /**
  * Logout
@@ -32,7 +34,7 @@ router.get('/register', RegisterController.index);
  * Register Page
  * @request POST
  */
-router.post('/register', RegisterController.postRegister);
+router.post('/register',RegisterValidation.rules, RegisterController.postRegister);
 
 /**
  * ForgotPassword Page
