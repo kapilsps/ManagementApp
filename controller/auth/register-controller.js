@@ -67,20 +67,17 @@ exports.postRegister = (req, res, next) => {
                         })
                         .then(result => {
                             if(result !== null){
-                                Role_User.create({
+                                return Role_User.create({
                                     'role_id':2,
                                     'user_id':result.id
-                                })
-                                .then(res => {
-                                    req.flash('success', 'Registered successfully.')
-                                    return res.redirect('/login');
-                                })
-                                .catch(err => {
-                                    console.log(err);
                                 });
                             }
                             req.flash('fail', 'Something went wrong please try again')
                             return res.redirect('/register');
+                        })
+                        .then(result => {
+                            req.flash('success', 'Registered successfully.')
+                            return res.redirect('/login');
                         })
                         .catch(err => {
                             console.log(err);

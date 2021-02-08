@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Role_User.belongsTo(models.Role, {foreignKey: 'role_id', targetKey:'id'});
+      Role_User.belongsTo(models.User, {foreignKey: 'user_id', targetKey:'id'});
     }
   };
   Role_User.init({
@@ -28,7 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       references:{
         model:'users',
         key:'id'
-      }
+      },
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     }
   }, {
     sequelize,
