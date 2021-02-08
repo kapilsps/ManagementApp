@@ -1,5 +1,5 @@
 const { validationResult }  = require('express-validator');
-const { User }              = require('../../models');
+const { User, Role_User }              = require('../../models');
 const bcrypt                = require('bcryptjs');
 
 /**
@@ -67,8 +67,17 @@ exports.postRegister = (req, res, next) => {
                         })
                         .then(result => {
                             if(result !== null){
-                                req.flash('success', 'Registered successfully.')
-                                return res.redirect('/login');
+                                Role_User.create({
+                                    'role_id':2,
+                                    'user_id':result.id
+                                })
+                                .then(res => {
+                                    req.flash('success', 'Registered successfully.')
+                                    return res.redirect('/login');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                });
                             }
                             req.flash('fail', 'Something went wrong please try again')
                             return res.redirect('/register');
