@@ -58,3 +58,15 @@ exports.postLogin = (req, res, next) => {
         res.redirect('/login');
     }
 };
+
+/**
+ * Handle logout request
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
+exports.logout = (req, res, next) => {
+    req.logout();
+    req.flash('success', 'Logout successfully.');
+    res.redirect('/login');
+}

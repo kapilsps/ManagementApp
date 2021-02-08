@@ -10,11 +10,7 @@ const passport          = require('passport');
 
 //routes
 const indexRouter       = require('./routes/index');
-const usersRouter       = require('./routes/users');
-const authRouter        = require('./routes/auth');
-
-//middleware
-const middleware = require('./middleware/check-authenticated')
+const webRouter         = require('./routes/web');
 
 //require passport utility
 require('./utilites/passport')(passport);
@@ -48,6 +44,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 //fontawesome
 app.use('/fontawesome-free', express.static(path.join(__dirname, 'node_modules', '@fortawesome', 'fontawesome-free')));
+//datatables
+app.use('/datatables', express.static(path.join(__dirname, 'node_modules', 'datatables.net')));
+app.use('/datatables', express.static(path.join(__dirname, 'node_modules', 'datatables.net-bs4')));
 
 
 
@@ -63,8 +62,7 @@ app.use(function(req, res, next){
 
 //routes
 app.use('/', indexRouter);
-app.use('/', authRouter);
-app.use('/users', middleware.check, usersRouter);
+app.use('/', webRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
