@@ -47,7 +47,7 @@ exports.postLogin = (req, res, next) => {
             });
         }else{
             passport.authenticate('local',{
-                successRedirect:'/users',
+                successRedirect:'/user',
                 failureRedirect:'/login',
                 failureFlash:true
             })(req, res, next);

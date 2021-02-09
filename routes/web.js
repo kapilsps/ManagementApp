@@ -7,6 +7,7 @@ const ForgotPasswordController      = require('../controller/auth/forgotpassword
 const RegisterValidation            = require('../validation_rules/register-validation');
 const LoginValidation               = require('../validation_rules/login-validation');
 const middleware                    = require('../middleware/check-authenticated');
+const AdminUserController           = require('../controller/admin/user-controller');
 
 /**
  * Login Page
@@ -36,7 +37,7 @@ router.get('/register', RegisterController.index);
  * Register Page
  * @request POST
  */
-router.post('/register',RegisterValidation.rules, RegisterController.postRegister);
+router.post('/register',RegisterValidation.createRules, RegisterController.postRegister);
 
 /**
  * ForgotPassword Page
@@ -51,7 +52,54 @@ router.get('/forgot-password', ForgotPasswordController.index);
 router.post('/forgot-password', ForgotPasswordController.postForgotPwd);
 
 
-/* GET user Dashboard. */
-router.get('/users', middleware.check, DashboardController.index);
+/* 
+* GET user Dashboard. 
+* @request GET
+*/
+router.get('/user', middleware.check, DashboardController.index);
+
+
+/**
+ * Show user table
+ * @request GET
+ */
+router.get('/user/list', AdminUserController.index);
+
+/**
+ * Show user create form
+ * @request GET
+ */
+router.get('/user/create', AdminUserController.create);
+
+/**
+ * store user 
+ * @request POST
+ */
+router.post('/user/create', RegisterValidation.createRules, AdminUserController.store);
+
+/**
+ * Show user details 
+ * @request POST
+ */
+router.get('/user/show/:id', AdminUserController.show);
+
+/**
+ * Get form to edit user details
+ * @request GET
+ */
+router.get('/user/edit/:id', AdminUserController.edit);
+
+/**
+ * Update the user details
+ * @request POST
+ */
+router.post('/user/edit/:id', RegisterValidation.updateRules, AdminUserController.update);
+
+
+/**
+ * delete user
+ * @request GET
+ */
+router.get('/user/delete/:id', AdminUserController.delete);
 
 module.exports = router;

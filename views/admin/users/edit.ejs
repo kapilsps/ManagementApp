@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="card card-info">
+        <div class="card-header">
+            <h3 class="card-title">Horizontal Form</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post" action="/user/edit/<%= data.id %>">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="username" class="required col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control <%= (typeof usrErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="username" id="username" placeholder="Name" value="<%= (typeof usrErrVal !== 'undefined') ? usrErrVal : data.name %>">
+                        <% if(typeof usrErrMsg !== 'undefined') { %>
+                            <div class="invalid-feedback"><%= usrErrMsg %></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="required col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control <%= (typeof emailErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="email" id="email" placeholder="Email" value="<%= (typeof emailErrVal !== 'undefined') ? emailErrVal : data.email %> %>">
+                        <% if(typeof emailErrMsg !== 'undefined') { %>
+                            <div class="invalid-feedback"><%= emailErrMsg %></div>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="required col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control <%= (typeof pwdErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="password" id="password" placeholder="Password">
+                        <% if(typeof pwdErrMsg !== 'undefined') { %>
+                            <div class="invalid-feedback"><%= pwdErrMsg %></div>
+                          <% } %>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="confirm_password" class="required col-sm-2 col-form-label">Confirm Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control <%= (typeof cnfPwdErrMsg !== 'undefined') ? 'is-invalid' : '' %>" name="confirm_password" id="confirm_password" placeholder="Confirm Password">
+                        <% if(typeof cnfPwdErrMsg !== 'undefined') { %>
+                            <div class="invalid-feedback"><%= cnfPwdErrMsg %></div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+                <button type="submit" class="btn btn-info">Update</button>
+                <a href="/user/list" class="btn btn-default float-right">Cancel</a>
+            </div>
+            <!-- /.card-footer -->
+        </form>
+    </div>
+</div>

@@ -7,21 +7,25 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- fontawesome -->
-    <link rel="stylesheet" href="fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/fontawesome-free/css/all.min.css">
+    <!-- datatables  -->
+    <link rel="stylesheet" href="/datatables/css/dataTables.bootstrap4.css">
     <!-- adminlte theme -->
-    <link rel="stylesheet" href="plugins/adminlte/css/adminlte.min.css">
+    <link rel="stylesheet" href="/plugins/adminlte/css/adminlte.min.css">
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body class="">
     <div class="wrapper">
         <%- include('../partials/nav-bar'); %>
         <%- include('../partials/side-bar'); %>
         <div class="content-wrapper">
-            <div class="content-header">
-                
-            </div>
-            <div class="content">
+            <section class="content-header">
+                <%- include('../partials/flash_messages'); %>
+            </section>
+            <section class="content">
                 <%- body %>
-            </div>
+            </section>
         </div>
         <%- include('../partials/footer'); %>
     </div>
@@ -31,7 +35,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- datatables -->
+<script src="/datatables/js/jquery.dataTables.js"></script>
+<script src="/datatables/js/dataTables.bootstrap4.js"></script>
 <!-- admin lte -->
-<script src="plugins/adminlte/js/adminlte.min.js"></script>
+<script src="/plugins/adminlte/js/adminlte.min.js"></script>
+<%- script %>
 </body>
 </html>

@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <!-- <div class="row"> -->
+        <div class="card">
+            <div class="card-header">
+                <h3>User Table</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped" id="user-table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if((data != null) && (data != undefined)) { %>
+                            <% data.forEach(function(value, index){ %>
+                                <tr>
+                                    <td><%= value.id %></td>
+                                    <td><%= value.name %></td>
+                                    <td><%= value.email %></td>
+                                    <td><%= value.createdAt %></td>
+                                    <td><%= value.updatedAt %></td>
+                                    <td>
+                                        <a href="/user/show/<%=value.id%>" class="btn btn-info">View</a>
+                                        <a href="/user/edit/<%=value.id%>" class="btn btn-warning">Edit</a>
+                                        <a href="/user/delete/<%=value.id%>" onclick="if(!confirm('Are you sure you want to delete.')) event.preventDefault();" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>                                
+                            <% }); %>
+                        <% } else{ %>
+                            No records found
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <!-- </div> -->
+</div>
+<script>
+$(function(){
+    $('#user-table').DataTable();
+});
+</script>

@@ -34,6 +34,7 @@ app.use(passport.session());
 // view engine setup
 app.use(expressLayouts);
 app.set('layout', path.join(__dirname, 'views', 'layouts', 'app_layout.ejs'));
+app.set('layout extractScripts', true);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
